@@ -2,38 +2,20 @@ pipeline{
     agent{
         label 'java-slave'
     }
+    environment{
+        name = "agnes"
+        course = "Devops Engineer"
+    }
     stages{
-        stage('Build'){
-         steps{
-             echo "Build the application"
-         }
-        }
-        stage('Scans'){
-            steps{
-                echo "performing sonar scans"
+        stage ('first stage'){
+            environment{
+                cloud = "GCP"
             }
-        }
-            stage('Dockerbuild'){
             steps{
-                echo "implementing docker build"
+                echo "welcome to devops ${name}"
+            echo "you enrolled to ${course}"
+            echo "you are certified in ${cloud}cloud"
             }
         }
-        stage('devenv'){
-            steps{
-                echo "developing to devenv"
-            }
-
-            }
-         stage('stageenv'){
-            steps{
-                echo "developing to stageenv"
-            }
-         }
-         stage('prodenv'){
-            steps{
-                echo "developing to prodenv"
-            }
-         }
-        
     }
 }
