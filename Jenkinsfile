@@ -1,20 +1,33 @@
-pipeline{
-    agent{
+pipeline {
+    agent {
         label 'java-slave'
     }
-    environment{
-        name = "agnes"
-        course = "Devops Engineer"
-    }
-    stages{
-        stage ('first stage'){
-            environment{
-                cloud = "GCP"
+    stages {
+        stage ('Build') {
+            steps {
+                echo "Building the application"
             }
-            steps{
-                echo "welcome to devops ${name}"
-            echo "you enrolled to ${course}"
-            echo "you are certified in ${cloud}cloud"
+        }
+        stage ('ParallelStageScans') {
+            parallel {
+                stage ('Sonar') {
+                    steps {
+                        echo "Sonar Stage Executing"
+                        sleep 10
+                    }
+                }
+                stage ('Fortify') {
+                    steps {
+                        echo "Sonar Fortify Executing"
+                        sleep 10
+                    }
+                }
+                stage ('Prisma') {
+                    steps {
+                        echo "Sonar Prisma Executing"
+                        sleep 10
+                    }
+                }
             }
         }
     }
